@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: turing-machine
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: turing-machine
+  template:
+    metadata:
+      labels:
+        app: turing-machine
+    spec:
+      containers:
+        - name: turing-machine
+          image: devops8080/react-turing-machine-nginx:latest
+          ports:
+            - containerPort: 80
