@@ -28,6 +28,21 @@ pipeline {
                 }
             }
         }
+        stage('Setup K8s Tools') {
+        steps {
+            script {
+                // Install kubectl if not present
+                sh '''
+                    if ! command -v kubectl &> /dev/null; then
+                        curl -LO "https://dl.k8s.io(curl -L -s https://dl.k8s.io)/bin/linux/amd64/kubectl"
+                        chmod +x kubectl
+                        mkdir -p ./bin
+                        mv kubectl ./bin/kubectl
+                    fi
+                '''
+                }
+            }
+        }
         stage('Deploy to Minikube') {
             steps {
                 sh "kubectl apply -f k8s/"
