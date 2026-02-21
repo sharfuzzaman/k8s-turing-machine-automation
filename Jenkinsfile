@@ -20,13 +20,14 @@ pipeline {
                 }
             }
         }
-
         stage('Push to Docker Hub') {
             steps {
-                sh "docker push $DOCKER_IMAGE:latest"
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh "docker login -u ${USER} -p ${PASS}"
+                    sh "docker push devops8080/react-turing-machine-nginx:latest"
                 }
+            }
         }
-
         stage('Deploy to Minikube') {
             steps {
                 sh "kubectl apply -f k8s/"
