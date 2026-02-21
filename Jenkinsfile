@@ -31,12 +31,10 @@ pipeline {
         stage('Setup K8s Tools') {
             steps {
                 script {
-                sh '''
-                    curl -LO "https://dl.k8s.io"
-                    chmod +x ./kubectl
-                    mkdir -p ./bin
-                    mv ./kubectl ./bin/kubectl
-                    '''
+                sh 'curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"'
+                sh "chmod +x ./kubectl"
+                sh "mkdir -p ./bin"
+                sh "mv ./kubectl ./bin/kubectl"
                 }
             }
         }
