@@ -40,7 +40,7 @@ pipeline {
         }
         stage('Deploy to Minikube') {
             steps {
-                sh "kubectl apply -f k8s/"
+                sh "./bin/kubectl apply -f k8s/"
             }
         }
     }
