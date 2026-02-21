@@ -31,13 +31,11 @@ pipeline {
         stage('Setup K8s Tools') {
             steps {
                 script {
-                    sh '''
-                        # Download a specific stable version directly
-                        curl -LO "https://dl.k8s.io"
-                        chmod +x kubectl
-                        # Move to a directory in the PATH or use relative path
-                        mkdir -p ./bin
-                        mv kubectl ./bin/kubectl
+                sh '''
+                    curl -LO "https://dl.k8s.io"
+                    chmod +x ./kubectl
+                    mkdir -p ./bin
+                    mv ./kubectl ./bin/kubectl
                     '''
                 }
             }
