@@ -29,17 +29,16 @@ pipeline {
             }
         }
         stage('Setup K8s Tools') {
-        steps {
-            script {
-                // Install kubectl if not present
-                sh '''
-                    if ! command -v kubectl &> /dev/null; then
-                        curl -LO "https://dl.k8s.io(curl -L -s https://dl.k8s.io)/bin/linux/amd64/kubectl"
+            steps {
+                script {
+                    sh '''
+                        # Download a specific stable version directly
+                        curl -LO "https://dl.k8s.io"
                         chmod +x kubectl
+                        # Move to a directory in the PATH or use relative path
                         mkdir -p ./bin
                         mv kubectl ./bin/kubectl
-                    fi
-                '''
+                    '''
                 }
             }
         }
