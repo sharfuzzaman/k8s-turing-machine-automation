@@ -58,6 +58,7 @@ pipeline {
             steps {
                 sh 'pwd'
                 sh 'ls -F'
+                sh 'find . -name "Chart.yaml"'
                 withCredentials([file(credentialsId: 'k8s-config', variable: 'KUBECONFIG')]) {
                     sh 'helm upgrade --install turing-machine ./turing-machine-chart'
                 }
