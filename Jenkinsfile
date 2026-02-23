@@ -57,7 +57,7 @@ pipeline {
         stage('Deploy with Helm') {
             steps {
                 withCredentials([file(credentialsId: 'k8s-config', variable: 'KUBECONFIG')]) {
-                    sh 'helm upgrade --install turing-machine .'
+                    sh 'helm upgrade --install turing-machine-chart .'
                 }
             }
         }
