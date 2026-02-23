@@ -50,10 +50,10 @@ pipeline {
     steps {
         withCredentials([file(credentialsId: 'k8s-config', variable: 'KUBECONFIG')]) {
             sh """
-               helm upgrade --install turing-machine ./turing-machine-chart \
-               --set image.tag=latest \
-               --set version=0.1.${BUILD_NUMBER} \
-               --set appVersion=1.0.${BUILD_NUMBER}
+                helm upgrade --install turing-machine ./turing-machine-chart \
+                --set image.tag=latest \
+                --version 0.1.${BUILD_NUMBER} \
+                --app-version 1.0.${BUILD_NUMBER}
             """
         }
     }
