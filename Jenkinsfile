@@ -12,7 +12,17 @@ pipeline {
                 git 'https://github.com/sharfuzzaman/react-turing-simulator_SOLID.git'
             }
         }
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
 
+        stage('Run Tests') {
+            steps {
+                sh 'npm run test'
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 script {
@@ -38,10 +48,9 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to Minikube') {
+        stage('Deploy with Helm') {
             steps {
-                sh "export KUBECONFIG=/var/jenkins_home/.kube/config"
-                sh "kubectl apply -f k8s/"
+                sh 'helm upgrade --install turing-machine ./turing-machine-chart'
             }
         }
     }
