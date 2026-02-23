@@ -47,12 +47,16 @@ pipeline {
             }
         }
         stage('Deploy with Helm') {
-            sh """
+            steps {
+                withCredentials([file(credentialsId: 'k8s-config', variable: 'KUBECONFIG')]) {
+                    sh """
                     sed -i 's/^version: .*/version: 0.1.${BUILD_NUMBER}/' ./turing-machine-chart/Chart.yaml
-                    sed -i 's/^appVersion: .*/appVersion: "1.0.${BUILD_NUMBER}"/' ./turing-machine-chart/Chart.yaml
-                    helm upgrade --install turing-machine ./turing-machine-chart \
-                    --set image.tag=latest
-                """
+                sed -i 's/^appVersion: .*/appVersion: "1.0.${BUILD_NUMBER}"/' ./turing-machine-chart/Chart.yaml
+                helm upgrade --install turing-machine ./turing-machine-chart \
+                --set image.tag=latest
+                    """
+                }
+            }
         }
     }
 }
