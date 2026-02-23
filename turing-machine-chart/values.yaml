@@ -1,5 +1,8 @@
 replicaCount: 2
 
+fullnameOverride: "turing-machine"
+nameOverride: "turing-machine"
+
 image:
   repository: devops8080/react-turing-machine-nginx
   tag: latest
