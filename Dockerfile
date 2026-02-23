@@ -31,4 +31,8 @@ RUN set -eux; \
     mv kubectl /usr/local/bin/kubectl && \
     rm kubectl.sha256
 
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs
+
+RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
 USER jenkins

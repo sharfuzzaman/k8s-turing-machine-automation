@@ -48,9 +48,17 @@ pipeline {
                 }
             }
         }
+        // stage('Deploy to Minikube') {
+        //     steps {
+        //         sh "export KUBECONFIG=/var/jenkins_home/.kube/config"
+        //         sh "kubectl apply -f k8s/"
+        //     }
+        // }
         stage('Deploy with Helm') {
             steps {
-                sh 'helm upgrade --install turing-machine ./turing-machine-chart'
+                withCredentials([file(credentialsId: 'k8s-config', variable: 'KUBECONFIG')]) {
+                    sh 'helm upgrade --install turing-machine ./turing-machine-chart'
+                }
             }
         }
     }
