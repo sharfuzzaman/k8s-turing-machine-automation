@@ -142,9 +142,10 @@ docker run -d \
 > ```bash
 > srw-rw---- 1 root 137 0 Dec 18 17:59 /var/run/docker.sock
 > ```
-> Now enter the Jenkins container
+> Now enter in the Jenkins container
 > ```bash
 > docker exec -it -u root jenkins bash
+> ```
 > then check the permission and group
 > ```bash
 > id jenkins
